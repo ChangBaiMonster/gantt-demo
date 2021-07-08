@@ -1,0 +1,37 @@
+{
+  "_from": "dhtmlx-gantt@7.0.13-bingo",
+  "_id": "dhtmlx-gantt@7.0.13-bingo",
+  "_inBundle": false,
+  "_integrity": "sha512-6VTBmRF6654lCxeWmCVHfNOwMzRp9qD2dh1VHra+7bN2U9w5xe8D914SCiYxVysvP2W96+JRpDH5emYVEnkTfg==",
+  "_location": "/dhtmlx-gantt",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "dhtmlx-gantt@7.0.13-bingo",
+    "name": "dhtmlx-gantt",
+    "escapedName": "dhtmlx-gantt",
+    "rawSpec": "7.0.13-bingo",
+    "saveSpec": null,
+    "fetchSpec": "7.0.13-bingo"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://172.20.30.64/dhtmlx-gantt/-/dhtmlx-gantt-7.0.13-bingo.tgz",
+  "_shasum": "c6184ce9b63d3fb8c5197f28ec2c896d35531043",
+  "_spec": "dhtmlx-gantt@7.0.13-bingo",
+  "_where": "/Users/changbaimonster/Desktop/未命名文件夹/gantt",
+  "author": "",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "An open source JavaScript Gantt chart that helps you illustrate a project schedule in a nice-looking chart.",
+  "license": "ISC",
+  "main": "codebase/dhtmlxgantt.js",
+  "name": "dhtmlx-gantt",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "7.0.13-bingo"
+}
