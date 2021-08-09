@@ -7,9 +7,9 @@
         <slot name="left-buttons">
         </slot>
         <!-- 基本按钮 -->
-        <Button type='primary' custom-icon="iconfont icondaochu2" @click="handleExport">Export</Button>
+        <Button type='primary' custom-icon="iconfont icondaochu2" @click="handleExport">导出</Button>
         <!-- 更多 -->
-        <!-- <Dropdown trigger="click"  class="gantt-more-Dropdown">
+        <Dropdown trigger="click"  class="gantt-more-Dropdown">
           <Button>操作<Icon type="ios-arrow-down"></Icon></Button>
           <DropdownMenu slot="list" class="gantt-more-menu">
             <slot name="more-buttons">
@@ -21,7 +21,7 @@
               </DropdownItem>
             </slot>
           </DropdownMenu>
-        </Dropdown> -->
+        </Dropdown>
       </div>
       <div class="gantt-toolbar-right">
         <!--不同单位视图切换-->
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-  import {Gantt} from 'dhtmlx-gantt'
+  import gantt from 'dhtmlx-gantt'
   import './api'
   export default {
     name: 'gantt',
@@ -81,7 +81,7 @@
           return { data: [], links: [], columns: [],resource:{columns:[],resource_data:[]} }
         }
       },
-       // 导出形式
+      // 导出形式
       export:{
         type:String,
         default:'pdf'
@@ -102,7 +102,7 @@
         // 切换视图
         layoutView:'default',
         // 初始化gantt
-        gantt:'',
+        // gantt:'',
        
       }
     },
@@ -117,12 +117,12 @@
           let _tasks = this.tasks
           if(this.initgantt!== 0){
             // 关联数据
-            this.gantt.clearAll()
-            this.gantt.parse(_tasks)
+            gantt.clearAll()
+            gantt.parse(_tasks)
             if(this.tasks.resource){
               this.resourcesStore.parse(_tasks.resource.resource_data)
             }
-            this.gantt.render()
+            gantt.render()
             this.$emit('update:loading', false);
           }
           this.initgantt = this.initgantt+1
@@ -130,10 +130,10 @@
       }
     },
     created(){
-      this.gantt = Gantt.getGanttInstance()
+      // this.gantt = Gantt.getGanttInstance()
     },
     mounted: function () {
-      this.gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+      gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
       this.setServerList() //设置单位视图下拉列表的数据
       this.setUnitView() // 设置单位视图
       this.unitData = this.getUnitData()
@@ -142,7 +142,7 @@
       this.start()
     },
     beforeDestroy(){
-      this.gantt.destructor()
+      gantt.destructor()
       this.resourcesStore.destructor()
     },
     methods: {
@@ -150,11 +150,11 @@
       start(){
         let _this=this
         if(this.tasks.resource){
-          var resourcesStore = this.gantt.createDatastore({
-            name: _this.gantt.config.resource_store,
+          var resourcesStore = gantt.createDatastore({
+            name: gantt.config.resource_store,
             type: "treeDatastore",
             initItem: function (item) {
-              item.parent = item.parent || _this.gantt.config.root_id;
+              item.parent = item.parent || gantt.config.root_id;
               item[gantt.config.resource_property] = item.parent;
               return item;
             }
@@ -162,19 +162,19 @@
           resourcesStore.parse(this.tasks.resource.resource_data)
           this.resourcesStore = resourcesStore
         }
-        this.gantt.init(this.$refs.gantt)
-        this.gantt.init(this.$refs.gantt)
+        gantt.init(this.$refs.gantt)
+        gantt.init(this.$refs.gantt)
       },
       // 初始化表格列
       initColumns () {
-        this.gantt.config.columns = this.tasks.columns
+        gantt.config.columns = this.tasks.columns
       },
       initGanttEvents () {
-        if (this.gantt.$_eventsInitialized) {
+        if (gantt.$_eventsInitialized) {
           return;
         }
         // 监听点击事件
-        this.gantt.attachEvent('onTaskClick', function (id, e) {
+        gantt.attachEvent('onTaskClick', function (id, e) {
           var button = e.target.closest('[data-action]')
           if (button) {
             var action = button.getAttribute('data-action');
@@ -198,37 +198,37 @@
       // 甘特图配置
       setConfigs () {
         // render:"split" 时，需要配置一下这个
-        this.gantt.config.open_split_tasks = true
+        gantt.config.open_split_tasks = true
         // 设置网格调整器的 DOM 元素的属性名称
-        this.gantt.config.grid_resizer_attribute = 'gridresizer'
+        gantt.config.grid_resizer_attribute = 'gridresizer'
         // 设置网格每个格子最小宽度
-        this.gantt.config.min_column_width = 50
+        gantt.config.min_column_width = 50
         // 拖动时，甘特图自动拓展时间
-        this.gantt.config.fit_tasks = true
+        gantt.config.fit_tasks = true
         // 根据grid的宽度自动调整grid的列
-        this.gantt.config.autofit = false
+        gantt.config.autofit = false
          // 不展示进度
-        this.gantt.config.show_progress = false
+        gantt.config.show_progress = false
         // 不可拖动
         // 允许用户拖动条形图来改变位置
-        this.gantt.config.drag_move = false
+        gantt.config.drag_move = false
         // 允许用户通过拖拽任务的条形图的两端来改变工期
-        this.gantt.config.drag_resize = false
+        gantt.config.drag_resize = true
         // 表格区域变化时，table时候自动调整适应宽度。当达到最小宽度时自动出现滚动条
-        this.gantt.config.grid_elastic_columns =true
-        this.gantt.config.grid_resizer_attribute = 'gridresizer';
+        gantt.config.grid_elastic_columns =true
+        gantt.config.grid_resizer_attribute = 'gridresizer';
         // 表格区域宽度
-        this.gantt.config.grid_width = 100
+        gantt.config.grid_width = 100
         // 如果有关联表格的话
         if(this.tasks.resource && this.tasks.resource.resource_data.length>0){
           // 启动资源分配解析
-          this.gantt.config.process_resource_assignments = true
-          this.gantt.config.work_time = true
+          gantt.config.process_resource_assignments = true
+          gantt.config.work_time = true
           // 周末样式
           let _this = this
-          this.gantt.templates.timeline_cell_class = function (task, date) {
+          gantt.templates.timeline_cell_class = function (task, date) {
             if(_this.viewUnit === 'day'){
-              if (!_this.gantt.isWorkTime({date: date, task: task},_this.viewUnit)){
+              if (!gantt.isWorkTime({date: date, task: task},_this.viewUnit)){
                 return "week_end";
               }else{
                 return "";
@@ -236,17 +236,17 @@
             }
           };
          // resource赋值
-          this.gantt.templates.resource_cell_value = function (start_date, end_date, resource, tasks) {
+          gantt.templates.resource_cell_value = function (start_date, end_date, resource, tasks) {
             return "<div>" + tasks.length + "</div>" 
           }
-	        this.gantt.config.resource_store = "resource"
-          this.gantt.config.resource_property = "typeId"
-          this.gantt.config.order_branch = true
+	        gantt.config.resource_store = "resource"
+          gantt.config.resource_property = "typeId"
+          gantt.config.order_branch = true
 
           let resourceConfig={
             columns:this.tasks.resource.columns
           } 
-          this.gantt.config.layout = {
+          gantt.config.layout = {
             css: "gantt_container",
             rows: [
               {
@@ -275,7 +275,7 @@
 
         }else{
           // 设置滚动条在进度区域内
-          this.gantt.config.layout = {
+          gantt.config.layout = {
             css: 'gantt_container',
             cols: [
               {
@@ -301,7 +301,7 @@
           }
         }
         // 添加颜色
-        this.gantt.templates.task_class =  function (start, end, task) {
+        gantt.templates.task_class =  function (start, end, task) {
           if(task.needType){
             switch (task.needType) {
               case "特殊加工":
@@ -344,7 +344,7 @@
       },
       // 新建模板
       handleNew (action, id) {
-        let task = this.gantt.getTask(id)
+        let task = gantt.getTask(id)
         this.formData = {
           status: task.status,
           number: task.number,
@@ -354,11 +354,11 @@
       },
       // 设置基础数据源
       setServerList () {
-        this.gantt.serverList('unit', [
-            { label: this.gantt.locale.labels.days, value: 'day' },
-            { label: this.gantt.locale.labels.weeks, value: 'week' },
-            { label: this.gantt.locale.labels.months, value: 'month' },
-            { label: this.gantt.locale.labels.years, value: 'year' }
+        gantt.serverList('unit', [
+            { label: gantt.locale.labels.days, value: 'day' },
+            { label: gantt.locale.labels.weeks, value: 'week' },
+            { label: gantt.locale.labels.months, value: 'month' },
+            { label: gantt.locale.labels.years, value: 'year' }
         ]);
       },
       // 设置单位视图
@@ -385,7 +385,7 @@
                                 unit: 'week',
                                 step: 1,
                                 format: function (date) {
-                                    let weekNum = this.gantt.date.date_to_str('%W')(date);
+                                    let weekNum = gantt.date.date_to_str('%W')(date);
                                     return weekNum;
                                 }
                             }
@@ -410,8 +410,8 @@
                                 unit: 'quarter',
                                 step: 1,
                                 format: function (date) {
-                                    var dateToStr = this.gantt.date.date_to_str("%M");
-                                    var endDate = this.gantt.date.add( this.gantt.date.add(date, 3, "month"), -1, "day");
+                                    var dateToStr = gantt.date.date_to_str("%M");
+                                    var endDate = gantt.date.add( gantt.date.add(date, 3, "month"), -1, "day");
                                     return dateToStr(date) + " - " + dateToStr(endDate);
                                 }
                             }
@@ -427,13 +427,13 @@
                     }
                 ]
             };
-            this.gantt.ext.zoom.init(zoomConfig);
-            this.gantt.ext.zoom.setLevel('day');
+            gantt.ext.zoom.init(zoomConfig);
+            gantt.ext.zoom.setLevel('day');
         }
       },
       // 获取单位列表下拉数据
       getUnitData(){
-        var unitList = this.gantt.serverList("unit");
+        var unitList = gantt.serverList("unit");
         unitList.forEach((item,index) => {
             item.label = item.value
         });
@@ -442,15 +442,15 @@
       },
       // 切换单位视图
       handleUnitViewChange (value) {
-          this.gantt.ext.zoom.setLevel(value);
+          gantt.ext.zoom.setLevel(value);
           // this.checkElection();
       },
       // 切换展开层级
       handleExpandAll (value) {
-        this.gantt.eachTask(function(task){
+        gantt.eachTask(function(task){
             task.$open = !!value;
         });
-        this.gantt.render();
+        gantt.render();
         // this.checkElection()
         this.$emit('on-expand-all', value);
       },
@@ -511,29 +511,29 @@
 
         switch (value) {
           case 'left': {
-            this.gantt.config.layout = noChartLayout
+            gantt.config.layout = noChartLayout
               break;
           }
           case 'default': {
-            this.gantt.config.layout = defaultLayout
+            gantt.config.layout = defaultLayout
               break;
           }
           case 'right': {
-            this.gantt.config.layout = noGridLayout
+            gantt.config.layout = noGridLayout
               break;
           }
         }
-        this.gantt.init(this.$refs.gantt)
+        gantt.init(this.$refs.gantt)
       },
       // 导出
       handleExport(){
         if(this.export === 'pdf'){
-          this.gantt.exportToPDF({
+          gantt.exportToPDF({
               raw:true
             })
         }
         if(this.export === 'excel'){
-          this.gantt.exportToExcel()
+          gantt.exportToExcel()
         }
 
       },
@@ -545,7 +545,7 @@
       },
       getData(){
         let list=[];
-        this.gantt.eachTask(function(task){list.push(task)});
+        gantt.eachTask(function(task){list.push(task)});
         return list;
       },
     }

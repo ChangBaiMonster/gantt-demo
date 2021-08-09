@@ -57,11 +57,11 @@
         this.ganttLoading = true
         setTimeout(() => {
           this.tasks.data=[
-            { id: 1, itemid: '001',text: 'Project 1', car: 'E18HOV901', start_date: '2020-01-17', end_date: '2020-01-19',"typeId":[{"resource_id":"1","value":1}]},
+            { id: 1, itemid: '001',text: 'Project 1',car: 'E18HOV901', start_date: '2020-01-17', end_date: '2020-01-19',"typeId":[{"resource_id":"1","value":1}]},
             { id: 2, itemid: '002',  text: 'Project 2', car: 'E18HOV902', start_date: '2020-01-18', end_date: '2020-01-24', render: 'split', type: 'project',"typeId":[{"resource_id":"1","value":1}]},
-            { id: 3, itemid: '003', text: 'Task 2-1', start_date: '2020-01-18', end_date: '2020-01-20', parent: 2,"typeId":[{"resource_id":"2","value":1}]},
-            { id: 4, itemid: '004',text: 'Task 2-2', start_date: '2020-01-20', end_date: '2020-01-21', parent: 2,"typeId":[{"resource_id":"2","value":1}]},
-            { id: 11, itemid: '011',text: 'Task 2-3', start_date: '2020-01-21', end_date: '2020-01-24',parent: 2,"typeId":[{"resource_id":"2","value":1}]},
+            { id: 3, itemid: '003', text: 'Task 2-1', needType:'特殊加工', start_date: '2020-01-18', end_date: '2020-01-20', parent: 2,"typeId":[{"resource_id":"2","value":1}]},
+            { id: 4, itemid: '004',text: 'Task 2-2', needType:'测量', start_date: '2020-01-20', end_date: '2020-01-21', parent: 2,"typeId":[{"resource_id":"2","value":1}]},
+            { id: 11, itemid: '011',text: 'Task 2-3', needType:'拆解', start_date: '2020-01-21', end_date: '2020-01-24',parent: 2,"typeId":[{"resource_id":"2","value":1}]},
             { id: 5, itemid: '005',text: 'Project 3', car: 'E18HOV904', start_date: '2020-01-20', end_date: '2020-01-28',"typeId":[{"resource_id":"1","value":1}]},
             { id: 6, itemid: '006', text: 'Task 3-1',  start_date: '2020-01-20', end_date: '2020-01-21', parent: 5,"typeId":[{"resource_id":"2","value":1}]},
             { id: 7, itemid: '007',text: 'Task 3-2', start_date: '2020-01-21', end_date: '2020-01-23', parent: 5,"typeId":[{"resource_id":"2","value":1}]},
