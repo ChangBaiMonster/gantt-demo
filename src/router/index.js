@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/',
       name: 'test',
-      component: () => import('@/pages/test')
+      component: () => import('@/pages/testMergeCell')
     },
   ]
 })
