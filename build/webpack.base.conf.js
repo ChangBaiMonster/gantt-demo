@@ -64,7 +64,49 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      // {
+      //   test: /\.css$/,
+      //   oneOf: [
+      //     // 这里匹配 `<style module>`
+      //     {
+      //       resourceQuery: /module/,
+      //       use: [
+      //         'vue-style-loader',
+      //         {
+      //           loader: 'css-loader',
+      //           options: {
+      //             modules: true,
+      //             localIdentName: '[local]_[hash:base64:5]'
+      //           }
+      //         }
+      //       ]
+      //     },
+      //     // 这里匹配普通的 `<style>` 或 `<style scoped>`
+      //     {
+      //       use: [
+      //         'vue-style-loader',
+      //         'css-loader'
+      //       ]
+      //     }
+      //   ]
+      // },
+      // {
+      //   test: /\.less$/,
+      //   use: [
+      //     'vue-style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         // 开启 CSS Modules
+      //         modules: true,
+      //         localIdentName: '[local]_[hash:base64:8]'
+      //       },
+            
+      //     },
+      //     'less-loader'
+      //   ]
+      // }
     ]
   },
   node: {

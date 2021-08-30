@@ -14,6 +14,9 @@
   },
   "dependencies": {
     "dhtmlx-gantt": "^7.1.5-bingo",
+    "fs": "0.0.1-security",
+    "html2canvas": "^1.2.1",
+    "jspdf": "^2.3.1",
     "moment": "^2.29.1",
     "view-design": "^4.6.1",
     "vue": "^2.6.12",

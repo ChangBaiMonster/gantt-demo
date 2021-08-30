@@ -66,6 +66,7 @@
 <script>
   import {Gantt} from 'dhtmlx-gantt'
   import moment from  "moment";
+  import {ganttStyle} from  "./ganttMergeCell.js";
   import './api'
   export default {
     name: 'gantt',
@@ -112,6 +113,8 @@
         layoutView:'default',
         // 初始化gantt
         gantt:'',
+        // 导出pdf
+        pdf: null
        
       }
     },
@@ -149,6 +152,7 @@
       this.initColumns() // 初始化列
       this.setConfigs() // 自定义配置
       this.start()
+      this.pdf = this.$refs.gantt
     },
     beforeDestroy(){
       this.gantt.destructor()
@@ -658,7 +662,8 @@
       handleExport(){
         if(this.export === 'pdf'){
           this.gantt.exportToPDF({
-              raw:true
+              raw:true,
+              header: "<style>" +ganttStyle+"</style>"
             })
         }
         if(this.export === 'excel'){
@@ -680,8 +685,11 @@
     }
   }
 </script>
+<style module='ganttStyles' >
+@import "./ganttMergeCell.css";
+</style>
 <style lang="less">
-  @import "./dhtmlxgantt.css";
+@import "./dhtmlxgantt.css";
   .gantt{
     height: 100%;
     position: relative;
